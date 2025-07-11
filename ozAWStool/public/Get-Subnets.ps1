@@ -16,7 +16,7 @@ function Get-Subnets
     )  
 
 
-
+    $delimit1="#"
     try {  
         $json = aws ec2 describe-subnets
 
@@ -39,9 +39,10 @@ function Get-Subnets
 
             [PSCustomObject]@{
                 Name        = $nameTag
-                VpcId       = $_.VpcId
-                CidrBlock = $_.CidrBlock
                 SubnetId = $_.SubnetId
+                CidrBlock = $_.CidrBlock
+                AvailabilityZone=$_.AvailabilityZone
+                VpcId       = $_.VpcId
                 
             }
     }  

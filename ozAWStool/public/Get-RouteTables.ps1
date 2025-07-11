@@ -3,7 +3,20 @@ function Get-RouteTables {
     param(  
        #
     )  
-
+  <#
+    # AWS CLI コマンドのベース  
+ 
+    $awsCli = " aws ec2 describe-route-tables"  
+  
+    try {  
+        $routeTablesJson = & $awsCli | ConvertFrom-Json  
+    }  
+    catch {  
+        Write-Error "AWS CLIからのデータ取得に失敗しました。AWS CLIがインストールされているか、設定が正しいか確認してください。"  
+        return  
+    }  
+  #>
+    $delimit1="#"
     try {  
         $json = aws ec2 describe-route-tables
 
@@ -49,7 +62,7 @@ function Get-RouteTables {
             # 送信先:ターゲット の形にする  
             "$destination`:$target"  
         }  
-        $routeString = $routeStrings -join ","  
+        $routeString = $routeStrings -join $delimit1
   
         # 関連付けを文字列化  
         # AssociationId, SubnetId, Main (bool)などを表示しカンマ区切り  
@@ -70,7 +83,7 @@ function Get-RouteTables {
             }  
             $parts -join ":"  
         }  
-        $assocString = $assocStrings -join ","  
+        $assocString = $assocStrings -join $delimit1  
                 # オブジェクトで返す  
         [PSCustomObject]@{  
             Name         = $name  

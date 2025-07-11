@@ -24,6 +24,7 @@ function Get-Ec2s {
         #    [string]$OutputPath = "./ec2_instances.csv"  
     )  
   
+    $delimit1="#"
     # AWS CLIでEC2インスタンス情報をJSON取得  
     try {  
         $json = aws ec2 describe-instances
@@ -69,7 +70,7 @@ function Get-Ec2s {
                 VpcId            = $_.VpcId
                 SubnetId         = $_.SubnetId
                 InstanceType     = $_.InstanceType
-                SecurityGroup    = $sgs -join ","
+                SecurityGroup    = $sgs -join $delimit1
             }
             
         }
