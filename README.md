@@ -1,0 +1,2 @@
+# awsResoureReportCmdlet
+AWSの各種リソースの一覧資料を作成するModule（Cmdlet)
